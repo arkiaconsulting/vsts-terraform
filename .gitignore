@@ -293,3 +293,5 @@ built
 tfplan
 *.vsix
 .gitconfig
+.vscode/settings.json
+.taskkey
