@@ -1,0 +1,34 @@
+{
+    "manifestVersion": 1,
+    "id": "terraform-extension",
+    "publisher": "arkiaconsulting",
+    "version": "1.0.8",
+    "name": "Terraform (by AKC)",
+    "description": "A set of Terraform tasks",
+    "public": false,
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "icons": {
+        "default": "extension-icon.png"
+    },
+    "contributions": [
+        {
+            "id": "TerraformAkc",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "terraform"
+            }
+        }
+    ],
+    "files": [
+        {
+            "path": "terraform/src"
+        }
+    ]
+}
