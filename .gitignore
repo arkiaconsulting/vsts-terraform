@@ -292,3 +292,4 @@ built
 **/samples/*.zip
 tfplan
 *.vsix
+.gitconfig
