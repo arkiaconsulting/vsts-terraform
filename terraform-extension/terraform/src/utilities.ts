@@ -86,9 +86,7 @@ function loginAzureRM(connectedService: string): void {
     var tenantId: string = tl.getEndpointAuthorizationParameter(connectedService, "tenantid", false);
     var subscriptionName: string = tl.getEndpointDataParameter(connectedService, "SubscriptionName", true);
     var subscriptionId: string = tl.getEndpointDataParameter(connectedService, "SubscriptionId", true);
-    //login using svn
     throwIfError(tl.execSync("az", "login --service-principal -u \"" + servicePrincipalId + "\" -p \"" + servicePrincipalKey + "\" --tenant \"" + tenantId + "\""));
-    //set the subscription imported to the current subscription
     throwIfError(tl.execSync("az", "account set --subscription \"" + subscriptionName + "\""));
     process.env.ARM_CLIENT_ID = servicePrincipalId;
     process.env.ARM_CLIENT_SECRET = servicePrincipalKey;

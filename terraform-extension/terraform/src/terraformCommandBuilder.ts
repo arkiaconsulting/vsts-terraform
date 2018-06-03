@@ -6,12 +6,16 @@ import fs = require('fs');
 
 export class TerraformCommandBuilder {
     protected mainCommand: string;
+    protected workingDirectory: string;
 
-    constructor(mainCommand: string) {
+    constructor(
+        mainCommand: string,
+        workingDirectory: string) {
         this.mainCommand = mainCommand;
+        this.workingDirectory = workingDirectory;
     }
 
-    protected prepare(workingDirectory: string): ToolRunner {
+    protected prepare(): ToolRunner {
         if (os.platform() == 'win32') {
             var executable = 'terraform.exe';
         } else {
@@ -21,15 +25,15 @@ export class TerraformCommandBuilder {
         try {
             var toolPath = tl.which(executable, true);
         } catch {
-            var toolPath = path.join(workingDirectory, executable);
+            var toolPath = path.join(this.workingDirectory, executable);
             if (!fs.existsSync(toolPath)) {
                 throw "Cannot find terraform executable";
             }
         }
         var tool = tl.tool(toolPath);
 
-        tl.mkdirP(workingDirectory);
-        tl.cd(workingDirectory);
+        tl.mkdirP(this.workingDirectory);
+        tl.cd(this.workingDirectory);
 
         return tool;
     }
@@ -44,8 +48,8 @@ export class TerraformCommandBuilder {
         }
     }
 
-    protected executeCommand(toolRunner: tr.ToolRunner, workingDir: string): tr.IExecSyncResult {
-        let result = toolRunner.execSync(<any>{ silent: false, failOnStdErr: false, cwd: workingDir });
+    protected executeCommand(toolRunner: tr.ToolRunner): tr.IExecSyncResult {
+        let result = toolRunner.execSync(<any>{ silent: false, failOnStdErr: false, cwd: this.workingDirectory });
         this.handleExecResult(result);
 
         return result;
@@ -56,18 +60,18 @@ export class WorkspaceCommandBuilder extends TerraformCommandBuilder {
     private workspaceName: string = '';
     private subCommand: string = '';
 
-    constructor() {
-        super('workspace')
+    constructor(workingDirectory: string) {
+        super('workspace', workingDirectory)
     }
 
-    public execute(workingDir: string) {
-        var tr = super.prepare(workingDir)
+    public execute() {
+        var tr = super.prepare()
             .arg(this.mainCommand)
             .arg(this.subCommand)
             .arg(this.workspaceName)
             .arg('-no-color');
 
-        this.executeCommand(tr, workingDir);
+        this.executeCommand(tr);
     }
 
     public setSelect(workspaceName: string): WorkspaceCommandBuilder {
@@ -90,12 +94,12 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
     private varsFile: string = '';
     private planToSave: string = '';
 
-    constructor() {
-        super('plan')
+    constructor(workingDirectory: string) {
+        super('plan', workingDirectory)
     }
 
-    public execute(workingDir: string) {
-        var tr = super.prepare(workingDir)
+    public execute() {
+        var tr = super.prepare()
             .arg(this.mainCommand);
 
         if (this.varsFile != '') {
@@ -109,7 +113,7 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
         tr.arg('-no-color')
             .arg('-input=false');
 
-        this.executeCommand(tr, workingDir);
+        this.executeCommand(tr);
     }
 
     public setVarsFile(varsFile: string): PlanCommandBuilder {
@@ -128,8 +132,8 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
 export class InitCommandBuilder extends TerraformCommandBuilder {
     private backend?: BackendDescriptor = undefined;
 
-    constructor() {
-        super('init');
+    constructor(workingDirectory: string) {
+        super('init', workingDirectory);
     }
 
     public setBackend(
@@ -147,8 +151,8 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
-    public execute(workingDir: string) {
-        var tr = super.prepare(workingDir)
+    public execute() {
+        var tr = super.prepare()
             .arg(this.mainCommand);
 
         if (this.backend != undefined) {
@@ -161,7 +165,7 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
         tr.arg('-no-color')
             .arg('-input=false');
 
-        this.executeCommand(tr, workingDir);
+        this.executeCommand(tr);
     }
 }
 
@@ -176,8 +180,8 @@ export class ApplyCommandBuilder extends TerraformCommandBuilder {
     private planName: string = '';
     private varsFile: string = '';
 
-    constructor() {
-        super('apply');
+    constructor(workingDirectory: string) {
+        super('apply', workingDirectory);
     }
 
     public setOutput(planName: string): ApplyCommandBuilder {
@@ -191,8 +195,8 @@ export class ApplyCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
-    public execute(workingDir: string) {
-        var tr = super.prepare(workingDir)
+    public execute() {
+        var tr = super.prepare()
             .arg(this.mainCommand);
 
         if (this.varsFile != '') {
@@ -207,14 +211,16 @@ export class ApplyCommandBuilder extends TerraformCommandBuilder {
             tr.arg(this.planName);
         }
 
-        this.executeCommand(tr, workingDir);
+        this.executeCommand(tr);
     }
 }
 
 export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
     private outputName: string = '';
-    constructor() {
-        super('output');
+    private taskVariableName: string = '';
+
+    constructor(workingDirectory: string, taskVariableName: string) {
+        super('output', workingDirectory);
     }
 
     public setOutputName(outputName: string): StoreOutputCommandBuilder {
@@ -222,15 +228,15 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
-    public execute(workingDir: string, taskVar: string) {
-        var tr = super.prepare(workingDir)
+    public execute() {
+        var tr = super.prepare()
             .arg(this.mainCommand)
             .arg('-json')
             .arg(this.outputName);
 
-        let result = this.executeCommand(tr, workingDir);
+        let result = this.executeCommand(tr);
         let output = JSON.parse(result.stdout);
 
-        tl.setTaskVariable(taskVar, output.value, output.sensitive);
+        tl.setTaskVariable(this.taskVariableName, output.value, output.sensitive);
     }
 }
