@@ -1,5 +1,5 @@
 import tr, { ToolRunner } from "vsts-task-lib/toolrunner";
-import * as tl from 'vsts-task-lib';
+import * as tl from 'vsts-task-lib/task';
 import os = require('os');
 import path = require('path');
 import fs = require('fs');
@@ -16,14 +16,15 @@ export class TerraformCommandBuilder {
     }
 
     protected prepare(): ToolRunner {
-        if (os.platform() == 'win32') {
+        tl.debug('os type is ' + tl.osType())
+        if (tl.osType() != 'Linux') {
             var executable = 'terraform.exe';
         } else {
             executable = 'terraform';
         }
 
         try {
-            var toolPath = tl.which(executable, true);
+            var toolPath = tl.which(executable);
         } catch {
             var toolPath = path.join(this.workingDirectory, executable);
             if (!fs.existsSync(toolPath)) {

@@ -8,7 +8,7 @@ import {
     WorkspaceCommandBuilder,
     StoreOutputCommandBuilder,
 } from './terraformCommandBuilder';
-import { downloadTerraform, loginAzure } from './utilities';
+import { downloadTerraform, loginAzure, isVersionValid } from './utilities';
 
 async function run() {
     try {
@@ -20,7 +20,7 @@ async function run() {
         let download = tl.getBoolInput('download', true);
         if (download) {
             let tfVersion: string = tl.getInput('tfversion', true);
-            if (!new RegExp('^(\d+\.)(\d+\.)(\d+)$').test(tfVersion)) {
+            if (!isVersionValid(tfVersion)) {
                 throw new Error(`Version ${tfVersion} is not an acceptable Terraform version number`);
             }
             await downloadTerraform(workDir, tfVersion);
@@ -31,13 +31,15 @@ async function run() {
         }
 
         if (tl.getBoolInput('init', true)) {
-            new InitCommandBuilder(workDir)
-                .setBackend(
+            let initBuilder = new InitCommandBuilder(workDir);
+            if (tl.getBoolInput('initbackend', true)) {
+                initBuilder.setBackend(
                     tl.getInput('backendrg', true),
                     tl.getInput('backendstorage', true),
                     tl.getInput('backendcontainer', true),
-                    tl.getInput('backendkey', true)
-                ).execute();
+                    tl.getInput('backendkey', true));
+            }
+            initBuilder.execute();
         }
 
         if (tl.getBoolInput('useworkspace', true)) {

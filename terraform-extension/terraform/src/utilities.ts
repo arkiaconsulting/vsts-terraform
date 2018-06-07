@@ -6,7 +6,7 @@ import * as tl from 'vsts-task-lib';
 import tr, { IExecOptions } from 'vsts-task-lib/toolrunner';
 
 export async function downloadTerraform(workingDirectory: string, version: string) {
-    let osType = os.platform() == 'win32' ? "windows_amd64" : 'linux_amd64'
+    let osType = tl.osType() == 'Windows_NT' ? "windows_amd64" : 'linux_amd64'
 
     let downloadUrl = `https://releases.hashicorp.com/terraform/${version}/terraform_${version}_${osType}.zip`;
     let filename = path.join(workingDirectory, 'terraform.zip');
@@ -98,4 +98,11 @@ function throwIfError(resultOfToolExecution): void {
     if (resultOfToolExecution.stderr) {
         throw resultOfToolExecution;
     }
+}
+
+export function isVersionValid(version: string): boolean {
+    let re = /^\d+\.\d+\.\d$/g;
+    let match = version.match(re);
+
+    return match != null;
 }
