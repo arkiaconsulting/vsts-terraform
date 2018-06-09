@@ -2,31 +2,27 @@
   "$schema": "https://aka.ms/vsts-tasks.schema.json",
   "id": "089890f0-617e-11e8-9afa-37d5fc39dea1",
   "name": "terraformakc",
-  "friendlyName": "Terraform (by AKC)",
+  "friendlyName": "Terraforming (by AKC)",
   "description": "Run Terraform commands",
   "author": "arkiaconsulting",
-  "helpMarkDown": "A Node task to help you provision cloud resources.",
+  "helpMarkDown": "A Node task to help you provision cloud resources using terraform.",
   "category": "Utility",
   "visibility": [
     "Build",
     "Release"
   ],
+  "preview": true,
   "demands": [],
   "version": {
     "Major": "0",
     "Minor": "2",
-    "Patch": "35"
+    "Patch": "37"
   },
   "groups": [
     {
       "name": "general",
       "displayName": "General",
       "isExpanded": true
-    },
-    {
-      "name": "maincommand",
-      "displayName": "Main",
-      "isExpanded": false
     },
     {
       "name": "azurermprovider",
@@ -41,6 +37,11 @@
     {
       "name": "workspace",
       "displayName": "Workspace",
+      "isExpanded": false
+    },
+    {
+      "name": "maincommand",
+      "displayName": "Main",
       "isExpanded": false
     },
     {

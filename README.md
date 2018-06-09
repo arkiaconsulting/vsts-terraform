@@ -1,20 +1,18 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+This Vsts extension simplify the process of running terraform commands during your build process. It's written in Node.js, so that it runs quicker than Powershell, and independently of the build agent Os.
+
+# Screenshot
+![screenshot](screenshot.png)
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+### Mandatory
+In the "Main" pane, select plan or apply.
+### Options
+1. Choose wether or not to download terraform (specifying the version)
+2. Configure your AzureRM provider
+2. Run "init"
+3. Choose the "workspace"
+4. Save a terraform output variable to a vsts variable
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# Extra Links
+[Hashicorp terraforms](https://www.terraform.io/)

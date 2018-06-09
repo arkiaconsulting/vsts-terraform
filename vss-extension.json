@@ -2,8 +2,8 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.0.8",
-    "name": "Terraform (by AKC)",
+    "version": "1.0.10",
+    "name": "Terraforming (by AKC)",
     "description": "A set of Terraform tasks",
     "public": false,
     "targets": [
@@ -11,8 +11,34 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
+    "tags": [
+        "terraform",
+        "azure",
+        "release",
+        "build",
+        "azurerm",
+        "infrastructure as code"
+    ],
     "icons": {
         "default": "extension-icon.png"
+    },
+    "screenshots": [
+        {
+            "path": "screenshot.png"
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "README.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/arkiaconsulting/vsts-terraform"
+        },
+        "support": {
+            "uri": "https://github.com/arkiaconsulting/vsts-terraform"
+        }
     },
     "contributions": [
         {
