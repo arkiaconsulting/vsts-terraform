@@ -2,14 +2,17 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.0.17",
+    "version": "1.0.19",
     "name": "Terraforming (by AKC)",
     "description": "A set of Terraform tasks",
-    "public": false,
+    "public": true,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
+    ],
+    "categories": [
+        "Build and release"
     ],
     "tags": [
         "terraform",
