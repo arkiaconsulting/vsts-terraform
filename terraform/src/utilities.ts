@@ -101,7 +101,7 @@ function throwIfError(resultOfToolExecution): void {
 }
 
 export function isVersionValid(version: string): boolean {
-    let re = /^\d+\.\d+\.\d$/g;
+    let re = /^\d+\.\d+\.\d+$/g;
     let match = version.match(re);
 
     return match != null;
