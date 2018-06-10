@@ -1,8 +1,10 @@
-# Introduction 
+# Introduction
 This Vsts extension simplify the process of running terraform commands during your build process. It's written in Node.js, so that it runs quicker than Powershell, and independently of the build agent Os.
 
+This extension is still at preview state. Comments are welcome.
+
 # Screenshot
-![screenshot](screenshot.png)
+![screenshot](https://raw.githubusercontent.com/arkiaconsulting/vsts-terraform/master/screenshot.png)
 
 # Getting Started
 ### Mandatory

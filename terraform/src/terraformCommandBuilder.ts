@@ -4,6 +4,8 @@ import os = require('os');
 import path = require('path');
 import fs = require('fs');
 
+let terraformToolPath: string = '';
+
 export class TerraformCommandBuilder {
     protected mainCommand: string;
     protected workingDirectory: string;
@@ -16,22 +18,24 @@ export class TerraformCommandBuilder {
     }
 
     protected prepare(): ToolRunner {
-        tl.debug('os type is ' + tl.osType())
-        if (tl.osType() != 'Linux') {
-            var executable = 'terraform.exe';
-        } else {
-            executable = 'terraform';
-        }
+        if (terraformToolPath == '') {
+            tl.debug('os type is ' + tl.osType())
+            if (tl.osType() != 'Linux') {
+                var executable = 'terraform.exe';
+            } else {
+                executable = 'terraform';
+            }
 
-        try {
-            var toolPath = tl.which(executable);
-        } catch {
-            var toolPath = path.join(this.workingDirectory, executable);
-            if (!fs.existsSync(toolPath)) {
-                throw "Cannot find terraform executable";
+            terraformToolPath = tl.which(executable);
+            if (terraformToolPath == '') {
+                terraformToolPath = path.join(this.workingDirectory, executable);
+                if (!fs.existsSync(terraformToolPath)) {
+                    throw "Cannot find terraform executable";
+                }
             }
         }
-        var tool = tl.tool(toolPath);
+
+        var tool = tl.tool(terraformToolPath);
 
         tl.mkdirP(this.workingDirectory);
         tl.cd(this.workingDirectory);
@@ -41,7 +45,6 @@ export class TerraformCommandBuilder {
 
     protected handleExecResult(execResult: tr.IExecSyncResult) {
         if (execResult.code != 0) {
-            tl.error(execResult.stderr);
             throw execResult.stderr;
         } else {
             console.log('Executable result is Ok');
@@ -224,8 +227,10 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
         super('output', workingDirectory);
     }
 
-    public setOutputName(outputName: string): StoreOutputCommandBuilder {
+    public setOutputName(outputName: string, taskVariableName: string): StoreOutputCommandBuilder {
         this.outputName = outputName;
+        this.taskVariableName = taskVariableName;
+
         return this;
     }
 

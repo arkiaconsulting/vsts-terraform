@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "init",
-            "program": "${workspaceFolder}/terraform-extension/terraform/src\\index.ts",
+            "program": "${workspaceFolder}/terraform/src\\index.ts",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ],
@@ -19,7 +19,7 @@
                 "ENDPOINT_AUTH_PARAMETER_SRV_tenantid": "${config:tenant.id}",
                 "ENDPOINT_DATA_SRV_SubscriptionName": "${config:subscription.name}",
                 "ENDPOINT_DATA_SRV_SubscriptionId": "${config:subscription.id}",
-                "INPUT_CWD": "${workspaceFolder}/terraform-extension/terraform/samples",
+                "INPUT_CWD": "${workspaceFolder}/terraform/samples",
                 "INPUT_TFVERSION": "0.11.7",
                 "INPUT_CMDTYPE": "apply",
                 "INPUT_VARSFILE": "alm.tfvars",
@@ -27,8 +27,8 @@
                 "INPUT_PLANOUTPUT": "tfplan",
                 "INPUT_DOWNLOAD": "False",
                 "INPUT_USEAZURERM": "True",
-                "INPUT_INIT": "False",
-                "INPUT_INITBACKEND": "False",
+                "INPUT_INIT": "True",
+                "INPUT_INITBACKEND": "True",
                 "INPUT_BACKENDKEY": "delete.terraform.tfstate",
                 "INPUT_BACKENDSTORAGE": "${config:storage.name}",
                 "INPUT_BACKENDCONTAINER": "remotestate",

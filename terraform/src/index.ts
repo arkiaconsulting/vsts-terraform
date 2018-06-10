@@ -48,10 +48,14 @@ async function run() {
                 new WorkspaceCommandBuilder(workDir)
                     .setSelect(workspace)
                     .execute();
-            } catch {
-                new WorkspaceCommandBuilder(workDir)
-                    .setNew(workspace)
-                    .execute();
+            } catch (err) {
+                if (tl.getBoolInput('createworkspace', true)) {
+                    new WorkspaceCommandBuilder(workDir)
+                        .setNew(workspace)
+                        .execute();
+                } else {
+                    throw err;
+                }
             }
         }
 
@@ -87,7 +91,7 @@ async function run() {
 
         if (tl.getBoolInput('storeoutput', true)) {
             new StoreOutputCommandBuilder(workDir, tl.getInput('taskoutputname', true))
-                .setOutputName(tl.getInput('tfoutputname', true))
+                .setOutputName(tl.getInput('tfoutputname', true), tl.getInput('taskoutputname', true))
                 .execute();
         }
 
