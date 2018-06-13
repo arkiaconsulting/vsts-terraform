@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "Terraforming (by AKC)",
     "description": "Tooling written in Node.js to easy your deployments using terraform.",
     "public": true,

@@ -16,7 +16,7 @@
   "version": {
     "Major": "0",
     "Minor": "3",
-    "Patch": "5"
+    "Patch": "6"
   },
   "groups": [
     {
@@ -291,7 +291,7 @@
     {
       "target": "backendstorage",
       "endpointId": "$(connectedServiceNameARM)",
-      "endpointUrl": "$(endpoint.url)/subscriptions/$(endpoint.subscriptionId)/resourcegroups/$(backendrg)/providers/Microsoft.Storage/storageAccounts?api-version=2017-10-01",
+      "endpointUrl": "{{endpoint.url}}/subscriptions/$(endpoint.subscriptionId)/resourcegroups/$(backendrg)/providers/Microsoft.Storage/storageAccounts?api-version=2017-10-01",
       "resultSelector": "jsonpath:$.value[*].name"
     }
   ]
