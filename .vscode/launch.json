@@ -7,6 +7,19 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Download Terraform",
+            "program": "${workspaceFolder}/v2/terraformdownload\\index.ts",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
+            "env": {
+                "INPUT_CWD": "${workspaceFolder}/v2/samples/download",
+                "INPUT_TFVERSION": "0.11.11",
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "init",
             "program": "${workspaceFolder}/terraform/src\\index.ts",
             "outFiles": [

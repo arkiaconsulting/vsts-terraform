@@ -1,0 +1,18 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "sourceMap": true,
+        "strict": false,
+        "strictNullChecks": false,
+        "removeComments": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "./common/terraformCommandBuilder.d.ts",
+        "./common/terraformCommandBuilder.ts",
+        "./common/utilities.d.ts",
+        "./common/utilities.ts"
+    ]
+}

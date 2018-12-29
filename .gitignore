@@ -287,6 +287,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 built
+dist
 .terraform
 **/samples/*.exe
 **/samples/*.zip
@@ -295,3 +296,4 @@ tfplan
 .gitconfig
 .vscode/settings.json
 .taskkey
+v2/samples
