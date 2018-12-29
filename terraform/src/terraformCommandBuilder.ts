@@ -26,10 +26,10 @@ export class TerraformCommandBuilder {
                 executable = 'terraform';
             }
 
-            terraformToolPath = tl.which(executable);
-            if (terraformToolPath == '') {
-                terraformToolPath = path.join(this.workingDirectory, executable);
-                if (!fs.existsSync(terraformToolPath)) {
+            terraformToolPath = path.join(this.workingDirectory, executable);
+            if (!fs.existsSync(terraformToolPath)) {
+                terraformToolPath = tl.which(executable);
+                if (terraformToolPath == '' || !fs.existsSync(terraformToolPath)) {
                     throw "Cannot find terraform executable";
                 }
             }
@@ -135,6 +135,7 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
 
 export class InitCommandBuilder extends TerraformCommandBuilder {
     private backend?: BackendDescriptor = undefined;
+    private customCommandLine?: string;
 
     constructor(workingDirectory: string) {
         super('init', workingDirectory);
@@ -155,6 +156,10 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
+    public setCustomCommandLine(customCommandLine: string) {
+        this.customCommandLine = customCommandLine;
+    }
+
     public execute() {
         var tr = super.prepare()
             .arg(this.mainCommand);
@@ -164,6 +169,10 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
                 .map(key => {
                     tr.arg(`-backend-config=${key}=${(<BackendDescriptor>this.backend)[key]}`);
                 });
+        }
+
+        if (this.customCommandLine != undefined) {
+            tr.arg(this.customCommandLine);
         }
 
         tr.arg('-no-color')

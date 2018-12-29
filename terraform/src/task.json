@@ -16,7 +16,7 @@
   "version": {
     "Major": "0",
     "Minor": "3",
-    "Patch": "6"
+    "Patch": "9"
   },
   "groups": [
     {
@@ -153,6 +153,15 @@
       "groupName": "init",
       "helpMarkDown": "The name container hosting the state.",
       "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "customcommandline",
+      "type": "string",
+      "label": "Custom Command Line",
+      "required": false,
+      "groupName": "init",
+      "helpMarkDown": "Additional command line options. ie: -backend-config=\"key=myKey\"",
+      "visibleRule": "init=true"
     },
     {
       "name": "cmdType",

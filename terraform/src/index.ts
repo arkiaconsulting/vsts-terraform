@@ -39,6 +39,9 @@ async function run() {
                     tl.getInput('backendcontainer', true),
                     tl.getInput('backendkey', true));
             }
+
+            initBuilder.setCustomCommandLine(tl.getInput('customcommandline'));
+
             initBuilder.execute();
         }
 
