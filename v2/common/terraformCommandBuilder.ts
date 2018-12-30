@@ -1,5 +1,5 @@
-import tr, { ToolRunner } from "vsts-task-lib/toolrunner";
-import * as tl from 'vsts-task-lib/task';
+import tr, { ToolRunner } from "azure-pipelines-task-lib/toolrunner";
+import * as tl from 'azure-pipelines-task-lib';
 import os = require('os');
 import path = require('path');
 import fs = require('fs');

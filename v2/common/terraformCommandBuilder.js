@@ -7,7 +7,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tl = __importStar(require("vsts-task-lib/task"));
+const tl = __importStar(require("azure-pipelines-task-lib"));
 const path = require("path");
 const fs = require("fs");
 let terraformToolPath = '';

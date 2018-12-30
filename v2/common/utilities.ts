@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import fetch from 'node-fetch';
 import os = require('os');
 import path = require('path');
-import * as tl from 'vsts-task-lib';
-import tr, { IExecOptions } from 'vsts-task-lib/toolrunner';
+import * as tl from 'azure-pipelines-task-lib';
+import tr, { IExecOptions } from 'azure-pipelines-task-lib/toolrunner';
 
 export async function downloadTerraform(workingDirectory: string, version: string) {
     let osType = tl.osType() == 'Windows_NT' ? "windows_amd64" : 'linux_amd64'

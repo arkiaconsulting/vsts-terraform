@@ -22,8 +22,8 @@ const fs = __importStar(require("fs"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const os = require("os");
 const path = require("path");
-const tl = __importStar(require("vsts-task-lib"));
-const toolrunner_1 = __importDefault(require("vsts-task-lib/toolrunner"));
+const tl = __importStar(require("azure-pipelines-task-lib"));
+const toolrunner_1 = __importDefault(require("azure-pipelines-task-lib/toolrunner"));
 function downloadTerraform(workingDirectory, version) {
     return __awaiter(this, void 0, void 0, function* () {
         let osType = tl.osType() == 'Windows_NT' ? "windows_amd64" : 'linux_amd64';

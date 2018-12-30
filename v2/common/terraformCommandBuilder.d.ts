@@ -1,4 +1,4 @@
-import tr, { ToolRunner } from "vsts-task-lib/toolrunner";
+import tr, { ToolRunner } from "azure-pipelines-task-lib/toolrunner";
 export declare class TerraformCommandBuilder {
     protected mainCommand: string;
     protected workingDirectory: string;

@@ -11,10 +11,10 @@
   "dependencies": {
     "7zip-bin": "^4.0.2",
     "7zip-bin-win": "^2.2.0",
+    "azure-pipelines-task-lib": "^2.7.7",
     "node-fetch": "^2.1.2",
     "q": "^1.5.1",
-    "util": "^0.10.3",
-    "vsts-task-lib": "^2.4.0"
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
