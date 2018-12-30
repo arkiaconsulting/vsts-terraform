@@ -1,9 +1,8 @@
 {
-  "$schema": "https://aka.ms/vsts-tasks.schema.json",
-  "id": "a0591640-0b46-11e9-86d1-cdbccb65e002",
+  "id": "a0456120-0c4c-11e9-9d7a-196b04f1dd0c",
   "name": "terraforminit",
   "friendlyName": "Terraform Init",
-  "description": "Initialize Terraform state",
+  "description": "Executes Terraform init command",
   "author": "arkiaconsulting",
   "helpMarkDown": "Replace with markdown to show in help",
   "category": "Utility",
@@ -17,9 +16,8 @@
     "Minor": "1",
     "Patch": "0"
   },
-  "preview": true,
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "Initialize Terraform",
+  "instanceNameFormat": "terraforminit $(message)",
   "inputs": [
     {
       "name": "cwd",
@@ -42,9 +40,6 @@
     "Node": {
       "target": "sample.js",
       "argumentFormat": ""
-    },
-    "PowerShell3": {
-      "target": "sample.ps1"
     }
   }
 }
