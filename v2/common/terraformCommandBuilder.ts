@@ -1,4 +1,4 @@
-import tr, { ToolRunner } from "azure-pipelines-task-lib/toolrunner";
+import tr from "azure-pipelines-task-lib/toolrunner";
 import * as tl from 'azure-pipelines-task-lib';
 import os = require('os');
 import path = require('path');
@@ -17,7 +17,7 @@ export class TerraformCommandBuilder {
         this.workingDirectory = workingDirectory;
     }
 
-    protected prepare(): ToolRunner {
+    protected prepare(): tr.ToolRunner {
         if (terraformToolPath == '') {
             tl.debug('os type is ' + tl.osType())
             if (tl.osType() != 'Linux') {

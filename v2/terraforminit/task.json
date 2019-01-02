@@ -14,10 +14,18 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "0"
+    "Patch": "3"
   },
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "terraforminit $(message)",
+  "instanceNameFormat": "Init Terraform",
+  "preview": true,
+  "groups": [
+    {
+      "name": "initoptions",
+      "displayName": "Init Options",
+      "isExpanded": false
+    }
+  ],
   "inputs": [
     {
       "name": "cwd",
@@ -28,18 +36,91 @@
       "helpMarkDown": "Current working directory when terraforminit is run."
     },
     {
-      "name": "msg",
-      "type": "string",
-      "label": "Message",
-      "defaultValue": "Hello World",
+      "name": "initbackend",
+      "type": "boolean",
+      "label": "Init Storage Backend",
+      "defaultValue": false,
       "required": true,
-      "helpMarkDown": "Message to echo out"
+      "groupName": "initoptions",
+      "helpMarkDown": "Wether or not to init terraform remote backend. If ticked, you have to switch on the option in the AzureRM Provider pane."
+    },
+    {
+      "name": "useazurerm",
+      "type": "boolean",
+      "label": "Use AzureRM Provider",
+      "defaultValue": false,
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "Wether or not to configure the AzureRM provider. If an Azure backend connection is required, it should be set on each task.",
+      "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "connectedServiceNameARM",
+      "aliases": [
+        "azureSubscription"
+      ],
+      "type": "connectedService:AzureRM",
+      "label": "Azure Subscription",
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "Select an Azure resource manager subscription",
+      "visibleRule": "initbackend=true && useazurerm=true"
+    },
+    {
+      "name": "backendKey",
+      "type": "string",
+      "label": "Key",
+      "defaultValue": "my.terraform.tfstate",
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "The name of the remote file containing the state.",
+      "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "backendrg",
+      "type": "picklist",
+      "label": "Resource Group",
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "The name of the resource group hosting the storage account.",
+      "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "backendstorage",
+      "type": "picklist",
+      "label": "Storage Account Name",
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "The name of the storage account hosting the state.",
+      "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "backendcontainer",
+      "type": "string",
+      "label": "Storage Container Name",
+      "required": true,
+      "groupName": "initoptions",
+      "helpMarkDown": "The name container hosting the state.",
+      "visibleRule": "initbackend=true"
     }
   ],
   "execution": {
     "Node": {
-      "target": "sample.js",
+      "target": "dist/terraforminit/index.js",
       "argumentFormat": ""
     }
-  }
+  },
+  "dataSourceBindings": [
+    {
+      "target": "backendrg",
+      "endpointId": "$(connectedServiceNameARM)",
+      "dataSourceName": "AzureResourceGroups"
+    },
+    {
+      "target": "backendstorage",
+      "endpointId": "$(connectedServiceNameARM)",
+      "endpointUrl": "{{endpoint.url}}/subscriptions/$(endpoint.subscriptionId)/resourcegroups/$(backendrg)/providers/Microsoft.Storage/storageAccounts?api-version=2017-10-01",
+      "resultSelector": "jsonpath:$.value[*].name"
+    }
+  ]
 }

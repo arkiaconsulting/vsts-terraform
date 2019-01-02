@@ -1,9 +1,9 @@
-import tr, { ToolRunner } from "azure-pipelines-task-lib/toolrunner";
+import tr from "azure-pipelines-task-lib/toolrunner";
 export declare class TerraformCommandBuilder {
     protected mainCommand: string;
     protected workingDirectory: string;
     constructor(mainCommand: string, workingDirectory: string);
-    protected prepare(): ToolRunner;
+    protected prepare(): tr.ToolRunner;
     protected handleExecResult(execResult: tr.IExecSyncResult): void;
     protected executeCommand(toolRunner: tr.ToolRunner): tr.IExecSyncResult;
 }
