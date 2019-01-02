@@ -232,7 +232,7 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
     private outputName: string = '';
     private taskVariableName: string = '';
 
-    constructor(workingDirectory: string, taskVariableName: string) {
+    constructor(workingDirectory: string) {
         super('output', workingDirectory);
     }
 
@@ -252,6 +252,6 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
         let result = this.executeCommand(tr);
         let output = JSON.parse(result.stdout);
 
-        tl.setTaskVariable(this.taskVariableName, output.value, output.sensitive);
+        tl.setVariable(this.taskVariableName, output.value, output.sensitive);
     }
 }
