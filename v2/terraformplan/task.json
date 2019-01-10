@@ -1,0 +1,78 @@
+{
+  "$schema": "https://aka.ms/vsts-tasks.schema.json",
+  "id": "9cd95940-14a5-11e9-a400-87ffab4fe319",
+  "name": "terraformplan",
+  "friendlyName": "Terraform Plan",
+  "description": "Launch Terraform plan",
+  "author": "arkiaconsulting",
+  "helpMarkDown": "Replace with markdown to show in help",
+  "category": "Utility",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "preview": true,
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "terraformplan $(message)",
+  "inputs": [
+    {
+      "name": "cwd",
+      "type": "filePath",
+      "label": "Working Directory",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Current working directory when terraforminit is run."
+    },
+    {
+      "name": "useazurerm",
+      "type": "boolean",
+      "label": "Use AzureRM Provider",
+      "defaultValue": false,
+      "required": true,
+      "helpMarkDown": "Wether or not to configure the AzureRM provider. If an Azure backend connection is required, it should be set on each task."
+    },
+    {
+      "name": "connectedServiceNameARM",
+      "type": "connectedService:AzureRM",
+      "label": "Azure Subscription",
+      "required": true,
+      "helpMarkDown": "Select an Azure resource manager subscription",
+      "visibleRule": "useazurerm=true"
+    },
+    {
+      "name": "usevarsfile",
+      "type": "boolean",
+      "label": "Use Vars File"
+    },
+    {
+      "name": "varsfile",
+      "type": "filePath",
+      "label": "Vars File"
+    },
+    {
+      "name": "usevars",
+      "type": "boolean",
+      "label": "Use Vars"
+    },
+    {
+      "name": "varsmap",
+      "type": "multiLine",
+      "label": "Vars Map",
+      "options": {
+        "rows": 5
+      }
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "dist/terraformplan/index.js",
+      "argumentFormat": ""
+    }
+  }
+}

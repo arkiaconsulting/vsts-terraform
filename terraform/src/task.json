@@ -11,12 +11,12 @@
     "Build",
     "Release"
   ],
-  "preview": true,
+  "deprecated": true,
   "demands": [],
   "version": {
     "Major": "0",
     "Minor": "3",
-    "Patch": "9"
+    "Patch": "10"
   },
   "groups": [
     {
