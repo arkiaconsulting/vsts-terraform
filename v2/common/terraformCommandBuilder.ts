@@ -216,7 +216,7 @@ export class ApplyCommandBuilder extends TerraformCommandBuilder {
         super('apply', workingDirectory);
     }
 
-    public setOutput(planName: string): ApplyCommandBuilder {
+    public setExecutionPlan(planName: string): ApplyCommandBuilder {
         this.planName = planName;
         return this;
     }

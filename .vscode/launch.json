@@ -121,6 +121,29 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Apply Terraform with azure",
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}/v2/terraformapply",
+            "program": "${workspaceFolder}/v2/terraformapply/index.ts",
+            "outFiles": [
+                "${workspaceFolder}/**/dist/**/*.js"
+            ],
+            "console": "externalTerminal",
+            "env": {
+                "INPUT_CWD": "${workspaceFolder}/v2/samples/withazure",
+                "INPUT_USEAZURERM": "True",
+                "INPUT_connectedServiceNameARM": "SRV",
+                "ENDPOINT_AUTH_PARAMETER_SRV_serviceprincipalid": "${config:service.principal.id}",
+                "ENDPOINT_AUTH_PARAMETER_SRV_serviceprincipalkey": "${config:service.principal.key}",
+                "ENDPOINT_AUTH_PARAMETER_SRV_tenantid": "${config:tenant.id}",
+                "ENDPOINT_DATA_SRV_SubscriptionName": "${config:subscription.name}",
+                "ENDPOINT_DATA_SRV_SubscriptionId": "${config:subscription.id}",
+                "INPUT_EXECUTIONPLAN": "tfplan"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "init",
             "program": "${workspaceFolder}/terraform/src\\index.ts",
             "outFiles": [
