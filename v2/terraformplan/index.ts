@@ -16,10 +16,19 @@ async function run() {
         }
 
         var planBuilder = new PlanCommandBuilder(workDir);
-        var varsFile = tl.getInput('varsfile', false)
-        if (varsFile) {
-            planBuilder.setVarsFile(varsFile);
+        var useVarFile = tl.getBoolInput('usevarsfile', true)
+        if (useVarFile) {
+            planBuilder.setVarsFile(tl.getInput('varsfile', true));
         }
+
+        var useVars = tl.getBoolInput('usevars', true)
+        if (useVars) {
+            const varsMap = JSON.parse(tl.getInput('varsmap', true));
+            Object.getOwnPropertyNames(varsMap).forEach(key => {
+                planBuilder.addVar(key, varsMap[key]);
+            });
+        }
+
         let savePlanResult = tl.getBoolInput('savePlanResult', true);
         if (savePlanResult) {
             planBuilder.savePlan(tl.getInput('planOutput', true));

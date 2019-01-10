@@ -2,7 +2,7 @@
   "$schema": "https://aka.ms/vsts-tasks.schema.json",
   "id": "9cd95940-14a5-11e9-a400-87ffab4fe319",
   "name": "terraformplan",
-  "friendlyName": "Terraform Plan",
+  "friendlyName": "Plan Terraform",
   "description": "Launch Terraform plan",
   "author": "arkiaconsulting",
   "helpMarkDown": "Replace with markdown to show in help",
@@ -15,7 +15,7 @@
   "version": {
     "Major": "0",
     "Minor": "1",
-    "Patch": "0"
+    "Patch": "1"
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -48,25 +48,52 @@
     {
       "name": "usevarsfile",
       "type": "boolean",
-      "label": "Use Vars File"
+      "label": "Use Vars File",
+      "defaultValue": "false",
+      "required": true
     },
     {
       "name": "varsfile",
       "type": "filePath",
-      "label": "Vars File"
+      "label": "Vars File",
+      "defaultValue": "",
+      "required": false,
+      "visibleRule": "usevarsfile=true"
     },
     {
       "name": "usevars",
       "type": "boolean",
-      "label": "Use Vars"
+      "label": "Use Vars",
+      "defaultValue": "false",
+      "required": true
     },
     {
       "name": "varsmap",
       "type": "multiLine",
       "label": "Vars Map",
+      "defaultValue": "{\n\t\"myVar\":\"myValue\",\n\t\"myVar2\":\"myValue2\"\n}",
+      "required": false,
+      "visibleRule": "usevars=true",
       "options": {
         "rows": 5
       }
+    },
+    {
+      "name": "savePlanResult",
+      "defaultValue": false,
+      "type": "boolean",
+      "required": true,
+      "label": "Save Plan Result",
+      "helpMarkDown": "Saves the execution plan for further use"
+    },
+    {
+      "name": "planOutput",
+      "defaultValue": "tfplan",
+      "label": "Plan Result",
+      "required": false,
+      "type": "string",
+      "visibleRule": "savePlanResult=true",
+      "helpMarkDown": "The name of the generated execution plan to save."
     }
   ],
   "execution": {

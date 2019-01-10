@@ -97,6 +97,7 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
     private workspaceName: string = '';
     private varsFile: string = '';
     private planToSave: string = '';
+    private varsMap: InputVar[] = [];
 
     constructor(workingDirectory: string) {
         super('plan', workingDirectory)
@@ -114,6 +115,10 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
             tr.arg(`-out=${this.planToSave}`);
         }
 
+        this.varsMap.forEach(item => {
+            tr.arg(['-var', `${item.name}=${item.value}`]);
+        });
+
         tr.arg('-no-color')
             .arg('-input=false');
 
@@ -126,11 +131,25 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
+    public addVar(varName: string, varValue: string): PlanCommandBuilder {
+        this.varsMap.push({
+            name: varName,
+            value: varValue
+        });
+
+        return this;
+    }
+
     public savePlan(planName: string): PlanCommandBuilder {
         this.planToSave = planName;
 
         return this;
     }
+}
+
+interface InputVar {
+    name: string,
+    value: string;
 }
 
 export class InitCommandBuilder extends TerraformCommandBuilder {
