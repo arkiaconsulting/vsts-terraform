@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.2.1",
+    "version": "1.2.3",
     "name": "Terraforming (by AKC)",
     "description": "Tooling written in Node.js to easy your deployments using terraform (cross platform)",
     "public": true,
@@ -20,14 +20,27 @@
         "release",
         "build",
         "azurerm",
-        "infrastructure as code"
+        "infrastructure as code",
+        "iac"
     ],
     "icons": {
         "default": "extension-icon.png"
     },
     "screenshots": [
         {
-            "path": "screenshot.png"
+            "path": "screenshot0.png"
+        },
+        {
+            "path": "screenshot1.png"
+        },
+        {
+            "path": "screenshot2.png"
+        },
+        {
+            "path": "screenshot3.png"
+        },
+        {
+            "path": "screenshot4.png"
         }
     ],
     "content": {
@@ -110,19 +123,64 @@
             "path": "terraform/src"
         },
         {
-            "path": "v2/terraformdownload"
+            "path": "v2/terraformdownload/dist"
         },
         {
-            "path": "v2/terraforminit"
+            "path": "v2/terraformdownload/node_modules"
         },
         {
-            "path": "v2/terraformplan"
+            "path": "v2/terraformdownload/icon.png"
         },
         {
-            "path": "v2/terraformapply"
+            "path": "v2/terraformdownload/task.json"
         },
         {
-            "path": "v2/terraformoutput"
+            "path": "v2/terraformapply/dist"
+        },
+        {
+            "path": "v2/terraformapply/node_modules"
+        },
+        {
+            "path": "v2/terraformapply/icon.png"
+        },
+        {
+            "path": "v2/terraformapply/task.json"
+        },
+        {
+            "path": "v2/terraforminit/dist"
+        },
+        {
+            "path": "v2/terraforminit/node_modules"
+        },
+        {
+            "path": "v2/terraforminit/icon.png"
+        },
+        {
+            "path": "v2/terraforminit/task.json"
+        },
+        {
+            "path": "v2/terraformoutput/dist"
+        },
+        {
+            "path": "v2/terraformoutput/node_modules"
+        },
+        {
+            "path": "v2/terraformoutput/icon.png"
+        },
+        {
+            "path": "v2/terraformoutput/task.json"
+        },
+        {
+            "path": "v2/terraformplan/dist"
+        },
+        {
+            "path": "v2/terraformplan/node_modules"
+        },
+        {
+            "path": "v2/terraformplan/icon.png"
+        },
+        {
+            "path": "v2/terraformplan/task.json"
         }
     ]
 }
