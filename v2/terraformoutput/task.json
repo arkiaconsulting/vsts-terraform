@@ -1,24 +1,20 @@
 {
+  "$schema": "https://aka.ms/vsts-tasks.schema.json",
   "id": "d8ac3c00-0e8b-11e9-a5ae-9f228aba3e18",
   "name": "terraformoutput",
   "friendlyName": "Terraform Output",
-  "description": "Get Output from Terraform state",
+  "description": "Launch terraform output",
   "author": "arkiaconsulting",
-  "helpMarkDown": "Replace with markdown to show in help",
   "category": "Utility",
-  "visibility": [
-    "Build",
-    "Release"
-  ],
   "demands": [],
   "version": {
-    "Major": "0",
-    "Minor": "1",
-    "Patch": "4"
+    "Major": 0,
+    "Minor": 2,
+    "Patch": 0
   },
   "minimumAgentVersion": "1.95.0",
   "preview": true,
-  "instanceNameFormat": "Output Terraform $(message)",
+  "instanceNameFormat": "Terraform Output",
   "inputs": [
     {
       "name": "cwd",
@@ -26,7 +22,7 @@
       "label": "Working Directory",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Current working directory when terraforminit is run."
+      "helpMarkDown": "Current working directory when terraform init is run."
     },
     {
       "name": "useazurerm",
@@ -51,7 +47,7 @@
       "name": "outputvars",
       "type": "multiLine",
       "label": "Output Mappings",
-      "defaultValue": "{\n\"my_tf_output_name\": \"MyTaskVariableName\"\n}",
+      "defaultValue": "{\n\t\"my_tf_output_name\": \"MyTaskVariableName\"\n}",
       "required": true,
       "helpMarkDown": "JSON dictionary like mapping between Terraform output names and Task variable names.",
       "properties": {

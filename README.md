@@ -1,20 +1,35 @@
 # Introduction
-This Vsts extension simplify the process of running terraform commands during your build process. It's written in Node.js, so that it runs quicker than Powershell, and independently of the build agent Os.
+This Vsts extension simplifies the process of running terraform commands during your build process. It's written in Node.js, so that it runs quicker than Powershell, and independently of the build agent Os.
 
-This extension is still at preview state. Comments are welcome.
+This extension is still at preview state. We need your feedback !
 
 # Screenshot
 ![screenshot](https://raw.githubusercontent.com/arkiaconsulting/vsts-terraform/master/screenshot.png)
 
-# Getting Started
-### Mandatory
-In the "Main" pane, select plan or apply.
-### Options
-1. Choose wether or not to download terraform (specifying the version)
-2. Configure your AzureRM provider
-2. Run "init"
-3. Choose the "workspace"
-4. Save a terraform output variable to a vsts variable
+# Available tasks
+
+## Terraform Download
+This task will download the given terraform version into the given directory.
+
+## Terraform Init
+This task will launch a terraform init command. You will optionally be able to:
+- use an AzureRM connection
+- use your remote backend
+
+## Terraform Plan
+This task will launch a terraform plan command. You will optionally be able to:
+- use an AzureRM connection
+- use a specific terraform variables file
+- specify custom variable values
+
+## Terraform Apply
+This task will launch a terraform apply command. You will optionally be able to:
+- use an AzureRM connection
+
+## Terraform Output
+This task will launch a terraform apply command. You will optionally be able to:
+- use an AzureRM connection
+- save multiple terraform outputs to task variables
 
 # Extra Links
 [Hashicorp terraforms](https://www.terraform.io/)

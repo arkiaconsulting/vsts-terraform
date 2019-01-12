@@ -1,31 +1,20 @@
 {
+  "$schema": "https://aka.ms/vsts-tasks.schema.json",
   "id": "a0456120-0c4c-11e9-9d7a-196b04f1dd0c",
   "name": "terraforminit",
   "friendlyName": "Terraform Init",
-  "description": "Executes Terraform init command",
+  "description": "Launch terraform init",
   "author": "arkiaconsulting",
-  "helpMarkDown": "Replace with markdown to show in help",
   "category": "Utility",
-  "visibility": [
-    "Build",
-    "Release"
-  ],
   "demands": [],
   "version": {
-    "Major": "0",
-    "Minor": "1",
-    "Patch": "3"
+    "Major": 0,
+    "Minor": 2,
+    "Patch": 2
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Init Terraform",
   "preview": true,
-  "groups": [
-    {
-      "name": "initoptions",
-      "displayName": "Init Options",
-      "isExpanded": false
-    }
-  ],
   "inputs": [
     {
       "name": "cwd",
@@ -41,7 +30,6 @@
       "label": "Init Storage Backend",
       "defaultValue": false,
       "required": true,
-      "groupName": "initoptions",
       "helpMarkDown": "Wether or not to init terraform remote backend. If ticked, you have to switch on the option in the AzureRM Provider pane."
     },
     {
@@ -50,7 +38,6 @@
       "label": "Use AzureRM Provider",
       "defaultValue": false,
       "required": true,
-      "groupName": "initoptions",
       "helpMarkDown": "Wether or not to configure the AzureRM provider. If an Azure backend connection is required, it should be set on each task.",
       "visibleRule": "initbackend=true"
     },
@@ -62,9 +49,38 @@
       "type": "connectedService:AzureRM",
       "label": "Azure Subscription",
       "required": true,
-      "groupName": "initoptions",
       "helpMarkDown": "Select an Azure resource manager subscription",
       "visibleRule": "initbackend=true && useazurerm=true"
+    },
+    {
+      "name": "backendrg",
+      "type": "pickList",
+      "label": "Resource Group",
+      "required": true,
+      "helpMarkDown": "The name of the resource group hosting the storage account.",
+      "visibleRule": "initbackend=true",
+      "properties": {
+        "editableOptions": "True"
+      }
+    },
+    {
+      "name": "backendstorage",
+      "type": "pickList",
+      "label": "Storage Account Name",
+      "required": true,
+      "helpMarkDown": "The name of the storage account hosting the state.",
+      "visibleRule": "initbackend=true",
+      "properties": {
+        "editableOptions": "True"
+      }
+    },
+    {
+      "name": "backendcontainer",
+      "type": "string",
+      "label": "Storage Container Name",
+      "required": true,
+      "helpMarkDown": "The name container hosting the state.",
+      "visibleRule": "initbackend=true"
     },
     {
       "name": "backendKey",
@@ -72,35 +88,7 @@
       "label": "Key",
       "defaultValue": "my.terraform.tfstate",
       "required": true,
-      "groupName": "initoptions",
       "helpMarkDown": "The name of the remote file containing the state.",
-      "visibleRule": "initbackend=true"
-    },
-    {
-      "name": "backendrg",
-      "type": "picklist",
-      "label": "Resource Group",
-      "required": true,
-      "groupName": "initoptions",
-      "helpMarkDown": "The name of the resource group hosting the storage account.",
-      "visibleRule": "initbackend=true"
-    },
-    {
-      "name": "backendstorage",
-      "type": "picklist",
-      "label": "Storage Account Name",
-      "required": true,
-      "groupName": "initoptions",
-      "helpMarkDown": "The name of the storage account hosting the state.",
-      "visibleRule": "initbackend=true"
-    },
-    {
-      "name": "backendcontainer",
-      "type": "string",
-      "label": "Storage Container Name",
-      "required": true,
-      "groupName": "initoptions",
-      "helpMarkDown": "The name container hosting the state.",
       "visibleRule": "initbackend=true"
     }
   ],
@@ -119,8 +107,12 @@
     {
       "target": "backendstorage",
       "endpointId": "$(connectedServiceNameARM)",
-      "endpointUrl": "{{endpoint.url}}/subscriptions/$(endpoint.subscriptionId)/resourcegroups/$(backendrg)/providers/Microsoft.Storage/storageAccounts?api-version=2017-10-01",
-      "resultSelector": "jsonpath:$.value[*].name"
+      "dataSourceName": "AzureRMResourcesInRGBasedOnType",
+      "parameters": {
+        "ResourceGroupName": "$(backendrg)",
+        "ResourceType": "Microsoft.Storage/storageAccounts"
+      },
+      "resultTemplate": "{ \"Value\" : \"{{{name}}}\", \"DisplayValue\" : \"{{{name}}}\" }"
     }
   ]
 }

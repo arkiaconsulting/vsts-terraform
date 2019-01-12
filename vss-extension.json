@@ -2,9 +2,9 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.1.4",
+    "version": "1.2.1",
     "name": "Terraforming (by AKC)",
-    "description": "Tooling written in Node.js to easy your deployments using terraform.",
+    "description": "Tooling written in Node.js to easy your deployments using terraform (cross platform)",
     "public": true,
     "targets": [
         {
@@ -53,11 +53,76 @@
             "properties": {
                 "name": "terraform"
             }
+        },
+        {
+            "id": "TerraformDownload",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraformdownload"
+            }
+        },
+        {
+            "id": "TerraformInit",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraforminit"
+            }
+        },
+        {
+            "id": "TerraformPlan",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraformplan"
+            }
+        },
+        {
+            "id": "TerraformApply",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraformapply"
+            }
+        },
+        {
+            "id": "TerraformOutput",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraformoutput"
+            }
         }
     ],
     "files": [
         {
             "path": "terraform/src"
+        },
+        {
+            "path": "v2/terraformdownload"
+        },
+        {
+            "path": "v2/terraforminit"
+        },
+        {
+            "path": "v2/terraformplan"
+        },
+        {
+            "path": "v2/terraformapply"
+        },
+        {
+            "path": "v2/terraformoutput"
         }
     ]
 }

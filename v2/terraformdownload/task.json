@@ -5,17 +5,12 @@
   "friendlyName": "Terraform Download",
   "description": "Download Terraform",
   "author": "arkiaconsulting",
-  "helpMarkDown": "Replace with markdown to show in help",
   "category": "Utility",
-  "visibility": [
-    "Build",
-    "Release"
-  ],
   "demands": [],
   "version": {
     "Major": 0,
-    "Minor": 1,
-    "Patch": 4
+    "Minor": 2,
+    "Patch": 0
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -27,7 +22,7 @@
       "label": "Working Directory",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Current working directory when terraform is run."
+      "helpMarkDown": "Working directory where to download terraform"
     },
     {
       "name": "tfversion",

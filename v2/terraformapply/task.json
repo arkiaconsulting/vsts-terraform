@@ -3,19 +3,14 @@
   "id": "09ff8590-1518-11e9-a4df-5159632253af",
   "name": "terraformapply",
   "friendlyName": "Terraform Apply",
-  "description": "Launch Terraform apply",
+  "description": "Launch terraform apply",
   "author": "arkiaconsulting",
-  "helpMarkDown": "Executes terraform apply",
   "category": "Utility",
-  "visibility": [
-    "Build",
-    "Release"
-  ],
   "demands": [],
   "version": {
     "Major": 0,
-    "Minor": 1,
-    "Patch": 2
+    "Minor": 2,
+    "Patch": 0
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -27,7 +22,7 @@
       "label": "Working Directory",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Current working directory when terraforminit is run."
+      "helpMarkDown": "Current working directory when terraform init has been ran"
     },
     {
       "name": "useazurerm",
@@ -35,7 +30,7 @@
       "label": "Use AzureRM Provider",
       "defaultValue": false,
       "required": true,
-      "helpMarkDown": "Wether or not to configure the AzureRM provider. If an Azure backend connection is required, it should be set on each task."
+      "helpMarkDown": "Wether or not to configure the AzureRM provider. If an Azure backend connection is required, you should tick"
     },
     {
       "name": "connectedServiceNameARM",
@@ -51,7 +46,7 @@
       "label": "Execution Plan File",
       "required": false,
       "type": "string",
-      "helpMarkDown": "The name of the execution plan."
+      "helpMarkDown": "The name of the execution plan that has previously been generated"
     }
   ],
   "execution": {
