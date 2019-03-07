@@ -33,6 +33,12 @@ async function run() {
         if (savePlanResult) {
             planBuilder.savePlan(tl.getInput('planOutput', true));
         }
+
+        let tfRootPath = tl.getInput('tfrootpath', false);
+        if (tfRootPath !== undefined) {
+            planBuilder.setRootPath(tfRootPath);
+        }
+
         planBuilder.execute();
 
         tl.setResult(tl.TaskResult.Succeeded, "Success");

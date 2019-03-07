@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.2.3",
+    "version": "1.3.5",
     "name": "Terraforming (by AKC)",
     "description": "Tooling written in Node.js to easy your deployments using terraform (cross platform)",
     "public": true,
@@ -116,6 +116,16 @@
             "properties": {
                 "name": "v2/terraformoutput"
             }
+        },
+        {
+            "id": "TerraformWorkspace",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "v2/terraformworkspace"
+            }
         }
     ],
     "files": [
@@ -181,6 +191,18 @@
         },
         {
             "path": "v2/terraformplan/task.json"
+        },
+        {
+            "path": "v2/terraformworkspace/dist"
+        },
+        {
+            "path": "v2/terraformworkspace/node_modules"
+        },
+        {
+            "path": "v2/terraformworkspace/icon.png"
+        },
+        {
+            "path": "v2/terraformworkspace/task.json"
         }
     ]
 }

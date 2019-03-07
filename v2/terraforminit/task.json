@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 3
+    "Patch": 5
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Init Terraform",
@@ -90,6 +90,13 @@
       "required": true,
       "helpMarkDown": "The name of the remote file containing the state.",
       "visibleRule": "initbackend=true"
+    },
+    {
+      "name": "tfrootpath",
+      "type": "string",
+      "label": "Terraform Files Path",
+      "required": false,
+      "helpMarkDown": "Optional path to terraform files"
     }
   ],
   "execution": {

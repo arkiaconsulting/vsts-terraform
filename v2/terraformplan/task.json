@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 1
+    "Patch": 2
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -93,6 +93,13 @@
       "type": "string",
       "visibleRule": "savePlanResult=true",
       "helpMarkDown": "The name of the generated execution plan to save."
+    },
+    {
+      "name": "tfrootpath",
+      "type": "string",
+      "label": "Terraform Files Path",
+      "required": false,
+      "helpMarkDown": "Optional path to terraform files"
     }
   ],
   "execution": {

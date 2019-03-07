@@ -97,6 +97,7 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
     private workspaceName: string = '';
     private varsFile: string = '';
     private planToSave: string = '';
+    private rootPath: string = '';
     private varsMap: InputVar[] = [];
 
     constructor(workingDirectory: string) {
@@ -122,11 +123,21 @@ export class PlanCommandBuilder extends TerraformCommandBuilder {
         tr.arg('-no-color')
             .arg('-input=false');
 
+        if (this.rootPath != '') {
+            tr.arg(`${this.rootPath}`);
+        }
+
         this.executeCommand(tr);
     }
 
     public setVarsFile(varsFile: string): PlanCommandBuilder {
         this.varsFile = varsFile;
+
+        return this;
+    }
+
+    public setRootPath(rootPath: string): PlanCommandBuilder {
+        this.rootPath = rootPath;
 
         return this;
     }
@@ -190,12 +201,12 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
                 });
         }
 
+        tr.arg('-no-color')
+            .arg('-input=false');
+
         if (this.customCommandLine != undefined) {
             tr.arg(this.customCommandLine);
         }
-
-        tr.arg('-no-color')
-            .arg('-input=false');
 
         this.executeCommand(tr);
     }

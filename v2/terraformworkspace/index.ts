@@ -1,7 +1,6 @@
 import * as tl from 'azure-pipelines-task-lib';
 import fs = require('fs');
-import { ApplyCommandBuilder } from '../common/terraformCommandBuilder'
-import { loginAzure } from "../common/utilities";
+import { WorkspaceCommandBuilder } from "../common/terraformCommandBuilder";
 
 async function run() {
     try {
@@ -10,15 +9,11 @@ async function run() {
             throw new Error(`Directory ${workDir} does not exist.`);
         }
 
-        if (tl.getBoolInput('useazurerm', true)) {
-            loginAzure();
-        }
+        let workspaceName: string = tl.getInput('workspacename', true);
 
-        var applyBuilder = new ApplyCommandBuilder(workDir);
-
-        applyBuilder.setExecutionPlan(tl.getInput('planOrPath', true));
-
-        applyBuilder.execute();
+        new WorkspaceCommandBuilder(workDir)
+            .setSelect(workspaceName)
+            .execute();
 
         tl.setResult(tl.TaskResult.Succeeded, "Success");
     } catch (err) {

@@ -24,6 +24,11 @@ async function run() {
                 tl.getInput('backendkey', true));
         }
 
+        let tfRootPath = tl.getInput('tfrootpath', false);
+        if (tfRootPath !== undefined) {
+            initBuilder.setCustomCommandLine(tfRootPath);
+        }
+
         initBuilder.execute();
 
         tl.setResult(tl.TaskResult.Succeeded, 'Terraform was downloaded successfully.');

@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 1
+    "Patch": 2
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -41,12 +41,12 @@
       "visibleRule": "useazurerm=true"
     },
     {
-      "name": "executionPlan",
+      "name": "planOrPath",
       "defaultValue": "tfplan",
-      "label": "Execution Plan File",
+      "label": "Execution Plan File or terraform files directory",
       "required": false,
       "type": "string",
-      "helpMarkDown": "The name of the execution plan that has previously been generated"
+      "helpMarkDown": "The name of the execution plan that has previously been generated, or the directory containing the terraform files to apply"
     }
   ],
   "execution": {
