@@ -285,3 +285,30 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
         tl.setVariable(this.taskVariableName, output.value, output.sensitive);
     }
 }
+
+export class DestroyCommandBuilder extends TerraformCommandBuilder {
+    private tfRootPath: string = '';
+
+    constructor(workingDirectory: string) {
+        super('destroy', workingDirectory);
+    }
+
+    public setRootPath(tfRootPath: string): DestroyCommandBuilder {
+        this.tfRootPath = tfRootPath;
+        return this;
+    }
+
+    public execute() {
+        var tr = super.prepare()
+            .arg(this.mainCommand);
+
+        tr.arg('-no-color')
+        .arg('-force');
+
+        if (this.tfRootPath != '') {
+            tr.arg(this.tfRootPath);
+        }
+
+        this.executeCommand(tr);
+    }
+}

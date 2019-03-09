@@ -1,20 +1,24 @@
 {
-  "$schema": "https://aka.ms/vsts-tasks.schema.json",
-  "id": "09ff8590-1518-11e9-a4df-5159632253af",
-  "name": "terraformapply",
-  "friendlyName": "Terraform Apply",
-  "description": "Launch terraform apply",
+  "id": "3aec56d0-40e0-11e9-8a0a-a5c0476fdcc4",
+  "name": "terraformdestroy",
+  "friendlyName": "Terraform destroy",
+  "description": "Launch Terraform destroy",
   "author": "arkiaconsulting",
+  "helpMarkDown": "Replace with markdown to show in help",
   "category": "Utility",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
   "demands": [],
   "version": {
-    "Major": 0,
-    "Minor": 2,
-    "Patch": 3
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "5"
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "Terraform Apply",
+  "instanceNameFormat": "terraform destroy",
   "inputs": [
     {
       "name": "cwd",
@@ -41,17 +45,17 @@
       "visibleRule": "useazurerm=true"
     },
     {
-      "name": "planOrPath",
-      "defaultValue": "tfplan",
-      "label": "Execution Plan File or terraform files directory",
+      "name": "tfRootPath",
+      "defaultValue": "",
+      "label": "Terraform Files Path",
       "required": false,
       "type": "string",
-      "helpMarkDown": "The name of the execution plan that has previously been generated, or the directory containing the terraform files to apply"
+      "helpMarkDown": "The directory containing the terraform files to apply"
     }
   ],
   "execution": {
     "Node": {
-      "target": "dist/terraformapply/index.js",
+      "target": "dist/terraformdestroy/index.js",
       "argumentFormat": ""
     }
   }

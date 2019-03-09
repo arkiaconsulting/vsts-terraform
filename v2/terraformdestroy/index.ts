@@ -1,7 +1,7 @@
 import * as tl from 'azure-pipelines-task-lib';
 import fs = require('fs');
-import { ApplyCommandBuilder } from '../common/terraformCommandBuilder'
-import { loginAzure } from "../common/utilities";
+import { DestroyCommandBuilder } from '../common/terraformCommandBuilder'
+import { loginAzure } from '../common/utilities';
 
 async function run() {
     try {
@@ -14,14 +14,14 @@ async function run() {
             loginAzure();
         }
 
-        var applyBuilder = new ApplyCommandBuilder(workDir);
+        var destroyBuilder = new DestroyCommandBuilder(workDir);
 
-        let planOrPath = tl.getInput('planOrPath', false);
-        if (planOrPath !== undefined) {
-            applyBuilder.setExecutionPlan(planOrPath);
+        let rootPath = tl.getInput('tfRootPath', false);
+        if (rootPath !== undefined) {
+            destroyBuilder.setRootPath(rootPath);
         }
 
-        applyBuilder.execute();
+        destroyBuilder.execute();
 
         tl.setResult(tl.TaskResult.Succeeded, "Success");
     } catch (err) {
