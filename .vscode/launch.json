@@ -8,13 +8,16 @@
             "type": "node",
             "request": "launch",
             "name": "Download Terraform",
-            "program": "${workspaceFolder}/v2/terraformdownload\\index.ts",
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}/v2/terraformdownload",
+            "program": "${workspaceFolder}/v2/terraformdownload/index.ts",
+            "console": "externalTerminal",
             "outFiles": [
-                "${workspaceFolder}/**/*.js"
+                "${workspaceFolder}/**/dist/**/*.js"
             ],
             "env": {
                 "INPUT_CWD": "${workspaceFolder}/v2/samples/download",
-                "INPUT_TFVERSION": "0.11.11",
+                "INPUT_TFVERSION": "0.12.0-rc1",
             }
         },
         {

@@ -86,6 +86,8 @@ class PlanCommandBuilder extends TerraformCommandBuilder {
         this.workspaceName = '';
         this.varsFile = '';
         this.planToSave = '';
+        this.rootPath = '';
+        this.varsMap = [];
     }
     execute() {
         var tr = super.prepare()
@@ -96,12 +98,29 @@ class PlanCommandBuilder extends TerraformCommandBuilder {
         if (this.planToSave != '') {
             tr.arg(`-out=${this.planToSave}`);
         }
+        this.varsMap.forEach(item => {
+            tr.arg(['-var', `${item.name}=${item.value}`]);
+        });
         tr.arg('-no-color')
             .arg('-input=false');
+        if (this.rootPath != '') {
+            tr.arg(`${this.rootPath}`);
+        }
         this.executeCommand(tr);
     }
     setVarsFile(varsFile) {
         this.varsFile = varsFile;
+        return this;
+    }
+    setRootPath(rootPath) {
+        this.rootPath = rootPath;
+        return this;
+    }
+    addVar(varName, varValue) {
+        this.varsMap.push({
+            name: varName,
+            value: varValue
+        });
         return this;
     }
     savePlan(planName) {
@@ -136,11 +155,11 @@ class InitCommandBuilder extends TerraformCommandBuilder {
                 tr.arg(`-backend-config=${key}=${this.backend[key]}`);
             });
         }
+        tr.arg('-no-color')
+            .arg('-input=false');
         if (this.customCommandLine != undefined) {
             tr.arg(this.customCommandLine);
         }
-        tr.arg('-no-color')
-            .arg('-input=false');
         this.executeCommand(tr);
     }
 }
@@ -151,7 +170,7 @@ class ApplyCommandBuilder extends TerraformCommandBuilder {
         this.planName = '';
         this.varsFile = '';
     }
-    setOutput(planName) {
+    setExecutionPlan(planName) {
         this.planName = planName;
         return this;
     }
@@ -176,7 +195,7 @@ class ApplyCommandBuilder extends TerraformCommandBuilder {
 }
 exports.ApplyCommandBuilder = ApplyCommandBuilder;
 class StoreOutputCommandBuilder extends TerraformCommandBuilder {
-    constructor(workingDirectory, taskVariableName) {
+    constructor(workingDirectory) {
         super('output', workingDirectory);
         this.outputName = '';
         this.taskVariableName = '';
@@ -193,7 +212,28 @@ class StoreOutputCommandBuilder extends TerraformCommandBuilder {
             .arg(this.outputName);
         let result = this.executeCommand(tr);
         let output = JSON.parse(result.stdout);
-        tl.setTaskVariable(this.taskVariableName, output.value, output.sensitive);
+        tl.setVariable(this.taskVariableName, output.value, output.sensitive);
     }
 }
 exports.StoreOutputCommandBuilder = StoreOutputCommandBuilder;
+class DestroyCommandBuilder extends TerraformCommandBuilder {
+    constructor(workingDirectory) {
+        super('destroy', workingDirectory);
+        this.tfRootPath = '';
+    }
+    setRootPath(tfRootPath) {
+        this.tfRootPath = tfRootPath;
+        return this;
+    }
+    execute() {
+        var tr = super.prepare()
+            .arg(this.mainCommand);
+        tr.arg('-no-color')
+            .arg('-force');
+        if (this.tfRootPath != '') {
+            tr.arg(this.tfRootPath);
+        }
+        this.executeCommand(tr);
+    }
+}
+exports.DestroyCommandBuilder = DestroyCommandBuilder;

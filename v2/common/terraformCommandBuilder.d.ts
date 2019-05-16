@@ -19,9 +19,13 @@ export declare class PlanCommandBuilder extends TerraformCommandBuilder {
     private workspaceName;
     private varsFile;
     private planToSave;
+    private rootPath;
+    private varsMap;
     constructor(workingDirectory: string);
     execute(): void;
     setVarsFile(varsFile: string): PlanCommandBuilder;
+    setRootPath(rootPath: string): PlanCommandBuilder;
+    addVar(varName: string, varValue: string): PlanCommandBuilder;
     savePlan(planName: string): PlanCommandBuilder;
 }
 export declare class InitCommandBuilder extends TerraformCommandBuilder {
@@ -42,14 +46,20 @@ export declare class ApplyCommandBuilder extends TerraformCommandBuilder {
     private planName;
     private varsFile;
     constructor(workingDirectory: string);
-    setOutput(planName: string): ApplyCommandBuilder;
+    setExecutionPlan(planName: string): ApplyCommandBuilder;
     setVarsFile(varsFile: string): ApplyCommandBuilder;
     execute(): void;
 }
 export declare class StoreOutputCommandBuilder extends TerraformCommandBuilder {
     private outputName;
     private taskVariableName;
-    constructor(workingDirectory: string, taskVariableName: string);
+    constructor(workingDirectory: string);
     setOutputName(outputName: string, taskVariableName: string): StoreOutputCommandBuilder;
+    execute(): void;
+}
+export declare class DestroyCommandBuilder extends TerraformCommandBuilder {
+    private tfRootPath;
+    constructor(workingDirectory: string);
+    setRootPath(tfRootPath: string): DestroyCommandBuilder;
     execute(): void;
 }
