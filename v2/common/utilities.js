@@ -116,7 +116,7 @@ function throwIfError(resultOfToolExecution) {
     }
 }
 function isVersionValid(version) {
-    let re = /^\d+\.\d+\.\d+-[a-z]+\d+$/g;
+    let re = /^\d+\.\d+\.\d+-*[a-z]*\d*$/g;
     let match = version.match(re);
     return match != null;
 }

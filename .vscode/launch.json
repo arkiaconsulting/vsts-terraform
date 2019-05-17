@@ -88,7 +88,7 @@
                 "INPUT_USEVARSFILE": "True",
                 "INPUT_VARSFILE": "${workspaceFolder}/v2/samples/vars.tfvars",
                 "INPUT_USEVARS": "True",
-                "INPUT_VARSMAP": "{\"myVar1\":\"var1 Value\"}",
+                "INPUT_VARSMAP": "{\n\t\"myVar1\":\"var1 Value\"\n}",
                 "INPUT_SAVEPLANRESULT": "True",
                 "INPUT_PLANOUTPUT": "tfplan"
             }
