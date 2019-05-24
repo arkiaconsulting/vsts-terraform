@@ -18,14 +18,14 @@ async function run() {
         let initBuilder = new InitCommandBuilder(workDir);
         if (tl.getBoolInput('initbackend', true)) {
             initBuilder.setBackend(
-                tl.getInput('backendrg', true),
-                tl.getInput('backendstorage', true),
-                tl.getInput('backendcontainer', true),
-                tl.getInput('backendkey', true));
+                tl.getInput('backendrg', false),
+                tl.getInput('backendstorage', false),
+                tl.getInput('backendcontainer', false),
+                tl.getInput('backendkey', false));
         }
 
         let tfRootPath = tl.getInput('tfrootpath', false);
-        if (tfRootPath !== undefined) {
+        if (tfRootPath !== null) {
             initBuilder.setCustomCommandLine(tfRootPath);
         }
 

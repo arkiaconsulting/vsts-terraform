@@ -17,7 +17,7 @@ async function run() {
         var applyBuilder = new ApplyCommandBuilder(workDir);
 
         let planOrPath = tl.getInput('planOrPath', false);
-        if (planOrPath !== undefined) {
+        if (planOrPath !== null) {
             applyBuilder.setExecutionPlan(planOrPath);
         }
 

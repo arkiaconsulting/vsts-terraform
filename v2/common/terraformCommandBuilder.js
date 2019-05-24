@@ -152,7 +152,8 @@ class InitCommandBuilder extends TerraformCommandBuilder {
         if (this.backend != undefined) {
             Object.getOwnPropertyNames(this.backend)
                 .map(key => {
-                tr.arg(`-backend-config=${key}=${this.backend[key]}`);
+                if (this.backend[key] !== null)
+                    tr.arg(`-backend-config=${key}=${this.backend[key]}`);
             });
         }
         tr.arg('-no-color')

@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 2
+    "Patch": 3
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
@@ -69,7 +69,7 @@
       "name": "varsmap",
       "type": "multiLine",
       "label": "Vars Map",
-      "defaultValue": "{\n\t\"myVar\":\"myValue\",\n\t\"myVar2\":\"myValue2\"\n}",
+      "defaultValue": "{\n\"myVar\":\"myValue\",\n\"myVar2\":\"myValue2\"\n}",
       "required": false,
       "visibleRule": "usevars=true",
       "options": {

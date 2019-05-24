@@ -197,7 +197,8 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
         if (this.backend != undefined) {
             Object.getOwnPropertyNames(this.backend)
                 .map(key => {
-                    tr.arg(`-backend-config=${key}=${(<BackendDescriptor>this.backend)[key]}`);
+                    if ((<BackendDescriptor>this.backend)[key] !== null)
+                        tr.arg(`-backend-config=${key}=${(<BackendDescriptor>this.backend)[key]}`);
                 });
         }
 
@@ -213,10 +214,10 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
 }
 
 export interface BackendDescriptor {
-    resource_group_name: string;
-    storage_account_name: string;
-    container_name: string,
-    key: string;
+    resource_group_name?: string;
+    storage_account_name?: string;
+    container_name?: string,
+    key?: string;
 }
 
 export class ApplyCommandBuilder extends TerraformCommandBuilder {
@@ -303,7 +304,7 @@ export class DestroyCommandBuilder extends TerraformCommandBuilder {
             .arg(this.mainCommand);
 
         tr.arg('-no-color')
-        .arg('-force');
+            .arg('-force');
 
         if (this.tfRootPath != '') {
             tr.arg(this.tfRootPath);

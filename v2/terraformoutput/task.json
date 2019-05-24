@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 1
+    "Patch": 2
   },
   "minimumAgentVersion": "1.95.0",
   "preview": true,
@@ -47,7 +47,7 @@
       "name": "outputvars",
       "type": "multiLine",
       "label": "Output Mappings",
-      "defaultValue": "{\n\t\"my_tf_output_name\": \"MyTaskVariableName\"\n}",
+      "defaultValue": "{\n\"my_tf_output_name\": \"MyTaskVariableName\"\n}",
       "required": true,
       "helpMarkDown": "JSON dictionary like mapping between Terraform output names and Task variable names.",
       "properties": {

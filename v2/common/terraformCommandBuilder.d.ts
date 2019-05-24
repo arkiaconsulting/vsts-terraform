@@ -37,10 +37,10 @@ export declare class InitCommandBuilder extends TerraformCommandBuilder {
     execute(): void;
 }
 export interface BackendDescriptor {
-    resource_group_name: string;
-    storage_account_name: string;
-    container_name: string;
-    key: string;
+    resource_group_name?: string;
+    storage_account_name?: string;
+    container_name?: string;
+    key?: string;
 }
 export declare class ApplyCommandBuilder extends TerraformCommandBuilder {
     private planName;
