@@ -1,12 +1,17 @@
 import * as tl from 'azure-pipelines-task-lib';
 import fs = require('fs');
 import { WorkspaceCommandBuilder } from "../common/terraformCommandBuilder";
+import { loginAzure } from "../common/utilities";
 
 async function run() {
     try {
         let workDir: string = tl.getInput('cwd', true);
         if (!fs.existsSync(workDir)) {
             throw new Error(`Directory ${workDir} does not exist.`);
+        }
+
+        if (tl.getBoolInput('useazurerm', true)) {
+            loginAzure();
         }
 
         let workspaceName: string = tl.getInput('workspacename', true);

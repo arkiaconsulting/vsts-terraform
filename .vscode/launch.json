@@ -58,17 +58,11 @@
             "outFiles": [
                 "${workspaceFolder}/**/dist/**/*.js"
             ],
-            "console": "externalTerminal",
+            "console": "integratedTerminal",
             "env": {
-                "INPUT_CWD": "${workspaceFolder}/v2/samples/initarm",
-                "INPUT_OUTPUTVARS": "{\"aks_rg\": \"MyVariable\"}",
-                "INPUT_USEAZURERM": "True",
-                "INPUT_connectedServiceNameARM": "SRV",
-                "ENDPOINT_AUTH_PARAMETER_SRV_serviceprincipalid": "${config:service.principal.id}",
-                "ENDPOINT_AUTH_PARAMETER_SRV_serviceprincipalkey": "${config:service.principal.key}",
-                "ENDPOINT_AUTH_PARAMETER_SRV_tenantid": "${config:tenant.id}",
-                "ENDPOINT_DATA_SRV_SubscriptionName": "${config:subscription.name}",
-                "ENDPOINT_DATA_SRV_SubscriptionId": "${config:subscription.id}",
+                "INPUT_CWD": "${workspaceFolder}/v2/samples/withoutazure",
+                "INPUT_OUTPUTVARS": "{\"my_variable_1\": \"MyVariable\"}",
+                "INPUT_USEAZURERM": "False"
             }
         },
         {

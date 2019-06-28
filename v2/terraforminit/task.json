@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 2,
-    "Patch": 13
+    "Patch": 15
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Init Terraform",
@@ -42,6 +42,13 @@
       "required": true,
       "helpMarkDown": "Select an Azure resource manager subscription",
       "visibleRule": "useazurerm=true"
+    },
+    {
+      "name": "backendConfigPath",
+      "type": "string",
+      "label": "Backend Config File",
+      "required": false,
+      "helpMarkDown": "Name of the backend config file (will be given to -backend-config parameter)"
     },
     {
       "name": "initbackend",

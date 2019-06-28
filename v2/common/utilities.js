@@ -66,10 +66,10 @@ function unzip(file, destinationFolder) {
 }
 function unzipExtract(file, destinationFolder) {
     const zip = new toolrunner_1.default.ToolRunner(tl.which("unzip", true));
-    zip.arg("-o"); // overwrite all
-    zip.arg("-d"); // redirect output to
-    zip.arg(destinationFolder); // output directory
-    zip.arg(file); // file to extract
+    zip.arg("-o");
+    zip.arg("-d");
+    zip.arg(destinationFolder);
+    zip.arg(file);
     var result = zip.execSync();
     handleExecResult(result);
     const bash = new toolrunner_1.default.ToolRunner(tl.which('bash', true))
@@ -85,11 +85,11 @@ function sevenZipExtract(file, destinationFolder) {
     const sevenZip = require('7zip-bin-win');
     const zip = new toolrunner_1.default.ToolRunner(sevenZip.path7za);
     zip.arg("x");
-    zip.arg(file); // file to extract
-    zip.arg(`-o${destinationFolder}`); // redirect output to dir
-    zip.arg("-y"); // assume yes on all queries
-    zip.arg("-spd"); // disable wildcards
-    zip.arg("-aoa"); // overwrite all
+    zip.arg(file);
+    zip.arg(`-o${destinationFolder}`);
+    zip.arg("-y");
+    zip.arg("-spd");
+    zip.arg("-aoa");
     let result = zip.execSync();
 }
 function loginAzure() {
@@ -121,3 +121,4 @@ function isVersionValid(version) {
     return match != null;
 }
 exports.isVersionValid = isVersionValid;
+//# sourceMappingURL=utilities.js.map

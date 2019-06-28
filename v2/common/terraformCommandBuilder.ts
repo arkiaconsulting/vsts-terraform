@@ -166,6 +166,7 @@ interface InputVar {
 export class InitCommandBuilder extends TerraformCommandBuilder {
     private backend?: BackendDescriptor = undefined;
     private customCommandLine?: string;
+    private backendConfigFile?: string;
 
     constructor(workingDirectory: string) {
         super('init', workingDirectory);
@@ -186,6 +187,10 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
         return this;
     }
 
+    public setBackendConfig(filePath: string) {
+        this.backendConfigFile = filePath;
+    }
+
     public setCustomCommandLine(customCommandLine: string) {
         this.customCommandLine = customCommandLine;
     }
@@ -200,6 +205,10 @@ export class InitCommandBuilder extends TerraformCommandBuilder {
                     if ((<BackendDescriptor>this.backend)[key] !== null)
                         tr.arg(`-backend-config=${key}=${(<BackendDescriptor>this.backend)[key]}`);
                 });
+        }
+
+        if(this.backendConfigFile != undefined) {
+            tr.arg(`-backend-config=${this.backendConfigFile}`);
         }
 
         tr.arg('-no-color')
@@ -218,6 +227,7 @@ export interface BackendDescriptor {
     storage_account_name?: string;
     container_name?: string,
     key?: string;
+    filePath?: string
 }
 
 export class ApplyCommandBuilder extends TerraformCommandBuilder {
@@ -277,11 +287,11 @@ export class StoreOutputCommandBuilder extends TerraformCommandBuilder {
     public execute() {
         var tr = super.prepare()
             .arg(this.mainCommand)
-            .arg('-json')
-            .arg(this.outputName);
+            .arg('-json');
 
         let result = this.executeCommand(tr);
-        let output = JSON.parse(result.stdout);
+        let allOutputs = JSON.parse(result.stdout);
+        let output = allOutputs[this.outputName];
 
         tl.setVariable(this.taskVariableName, output.value, output.sensitive);
     }

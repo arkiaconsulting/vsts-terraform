@@ -24,6 +24,10 @@ async function run() {
                 tl.getInput('backendkey', false));
         }
 
+        if(tl.getInput('backendConfigPath', false) != null) {
+            initBuilder.setBackendConfig(tl.getPathInput('backendConfigPath'));
+        }
+
         let tfRootPath = tl.getInput('tfrootpath', false);
         if (tfRootPath !== null) {
             initBuilder.setCustomCommandLine(tfRootPath);

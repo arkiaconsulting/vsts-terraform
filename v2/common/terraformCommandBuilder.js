@@ -143,6 +143,9 @@ class InitCommandBuilder extends TerraformCommandBuilder {
         };
         return this;
     }
+    setBackendConfig(filePath) {
+        this.backendConfigFile = filePath;
+    }
     setCustomCommandLine(customCommandLine) {
         this.customCommandLine = customCommandLine;
     }
@@ -155,6 +158,9 @@ class InitCommandBuilder extends TerraformCommandBuilder {
                 if (this.backend[key] !== null)
                     tr.arg(`-backend-config=${key}=${this.backend[key]}`);
             });
+        }
+        if (this.backendConfigFile != undefined) {
+            tr.arg(`-backend-config=${this.backendConfigFile}`);
         }
         tr.arg('-no-color')
             .arg('-input=false');
@@ -209,10 +215,10 @@ class StoreOutputCommandBuilder extends TerraformCommandBuilder {
     execute() {
         var tr = super.prepare()
             .arg(this.mainCommand)
-            .arg('-json')
-            .arg(this.outputName);
+            .arg('-json');
         let result = this.executeCommand(tr);
-        let output = JSON.parse(result.stdout);
+        let allOutputs = JSON.parse(result.stdout);
+        let output = allOutputs[this.outputName];
         tl.setVariable(this.taskVariableName, output.value, output.sensitive);
     }
 }
@@ -238,3 +244,4 @@ class DestroyCommandBuilder extends TerraformCommandBuilder {
     }
 }
 exports.DestroyCommandBuilder = DestroyCommandBuilder;
+//# sourceMappingURL=terraformCommandBuilder.js.map
