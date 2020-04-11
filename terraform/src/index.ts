@@ -8,7 +8,7 @@ import {
     WorkspaceCommandBuilder,
     StoreOutputCommandBuilder,
 } from './terraformCommandBuilder';
-import { downloadTerraform, loginAzure, isVersionValid } from './utilities';
+import { downloadTerraform, setAzureCloudBasedOnServiceEndpoint, loginAzure, isVersionValid } from './utilities';
 
 async function run() {
     try {
@@ -27,6 +27,7 @@ async function run() {
         }
 
         if (tl.getBoolInput('useazurerm', true)) {
+            setAzureCloudBasedOnServiceEndpoint();
             loginAzure();
         }
 

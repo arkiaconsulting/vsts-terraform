@@ -75,6 +75,29 @@ function sevenZipExtract(file: string, destinationFolder: string): void {
     let result = zip.execSync();
 }
 
+export function setAzureCloudBasedOnServiceEndpoint() {
+    var connectedService: string = tl.getInput("connectedServiceNameARM", true);
+    var environment = tl.getEndpointDataParameter(connectedService, "environment", true);
+    if(!!environment) {
+        throwIfError(tl.execSync("az", "cloud set -n " + environment));
+        if (environment == "AzureCloud") {
+            process.env.ARM_ENVIRONMENT = "public";
+        }
+        else if (environment == "AzureChinaCloud") {
+            process.env.ARM_ENVIRONMENT = "china";
+        }
+        else if (environment == "AzureGermanCloud") {
+            process.env.ARM_ENVIRONMENT = "german";
+        }
+        else if (environment == "AzureUSGovernment") {
+            process.env.ARM_ENVIRONMENT = "usgovernment";
+        }
+    }
+    else {
+        process.env.ARM_ENVIRONMENT = "public";
+    }
+}
+
 export function loginAzure() {
     var connectedService: string = tl.getInput("connectedServiceNameARM", true);
     loginAzureRM(connectedService);
