@@ -92,6 +92,29 @@ function sevenZipExtract(file, destinationFolder) {
     zip.arg("-aoa");
     let result = zip.execSync();
 }
+function setAzureCloudBasedOnServiceEndpoint() {
+    var connectedService = tl.getInput("connectedServiceNameARM", true);
+    var environment = tl.getEndpointDataParameter(connectedService, "environment", true);
+    if(!!environment) {
+        throwIfError(tl.execSync("az", "cloud set -n " + environment));
+        if (environment == "AzureCloud") {
+            process.env.ARM_ENVIRONMENT = "public";
+        }
+        else if (environment == "AzureChinaCloud") {
+            process.env.ARM_ENVIRONMENT = "china";
+        }
+        else if (environment == "AzureGermanCloud") {
+            process.env.ARM_ENVIRONMENT = "german";
+        }
+        else if (environment == "AzureUSGovernment") {
+            process.env.ARM_ENVIRONMENT = "usgovernment";
+        }
+    }
+    else {
+        process.env.ARM_ENVIRONMENT = "public";
+    }
+}
+exports.setAzureCloudBasedOnServiceEndpoint = setAzureCloudBasedOnServiceEndpoint;
 function loginAzure() {
     var connectedService = tl.getInput("connectedServiceNameARM", true);
     loginAzureRM(connectedService);

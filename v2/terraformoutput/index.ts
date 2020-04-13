@@ -2,7 +2,7 @@ import tr from "azure-pipelines-task-lib/toolrunner";
 import * as tl from 'azure-pipelines-task-lib';
 import fs = require('fs');
 import { StoreOutputCommandBuilder } from '../common/terraformCommandBuilder'
-import { loginAzure } from "../common/utilities";
+import { loginAzure, setAzureCloudBasedOnServiceEndpoint } from "../common/utilities";
 
 async function run() {
     try {
@@ -12,6 +12,7 @@ async function run() {
         }
 
         if (tl.getBoolInput('useazurerm', true)) {
+            setAzureCloudBasedOnServiceEndpoint();
             loginAzure();
         }
 
