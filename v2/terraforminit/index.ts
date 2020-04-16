@@ -1,4 +1,3 @@
-import tr from "azure-pipelines-task-lib/toolrunner";
 import * as tl from 'azure-pipelines-task-lib';
 import fs = require('fs');
 import { InitCommandBuilder } from '../common/terraformCommandBuilder'
