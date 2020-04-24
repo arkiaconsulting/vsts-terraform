@@ -1,5 +1,4 @@
-import tr from "azure-pipelines-task-lib/toolrunner";
-import * as tl from 'azure-pipelines-task-lib';
+import tl = require("azure-pipelines-task-lib/task");
 import fs = require('fs');
 import { PlanCommandBuilder } from '../common/terraformCommandBuilder'
 import { loginAzure, setAzureCloudBasedOnServiceEndpoint } from "../common/utilities";
@@ -36,7 +35,7 @@ async function run() {
         }
 
         let tfRootPath = tl.getInput('tfrootpath', false);
-        if (tfRootPath !== null) {
+        if (tfRootPath !== undefined) {
             planBuilder.setRootPath(tfRootPath);
         }
 

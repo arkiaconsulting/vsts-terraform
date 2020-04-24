@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import os = require('os');
 import path = require('path');
 import * as tl from 'azure-pipelines-task-lib';
-import tr, { IExecOptions } from 'azure-pipelines-task-lib/toolrunner';
+import tr = require('azure-pipelines-task-lib/toolrunner');
 
 export async function downloadTerraform(workingDirectory: string, version: string) {
     let osType = tl.osType() == 'Windows_NT' ? "windows_amd64" : 'linux_amd64'
@@ -58,7 +58,7 @@ function unzipExtract(file: string, destinationFolder: string): void {
         .arg('--norc')
         .arg('-c')
         .arg('chmod +x terraform');
-    var result = bash.execSync(<IExecOptions>{ cwd: destinationFolder, failOnStdErr: true });
+    var result = bash.execSync(<tr.IExecOptions>{ cwd: destinationFolder, failOnStdErr: true });
     handleExecResult(result);
 }
 
@@ -79,7 +79,7 @@ export function setAzureCloudBasedOnServiceEndpoint() {
     var connectedService: string = tl.getInput("connectedServiceNameARM", true);
     var environment = tl.getEndpointDataParameter(connectedService, "environment", true);
     if(!!environment) {
-        throwIfError(tl.execSync("az", "cloud set -n " + environment));
+        handleExecResult(tl.execSync("az", "cloud set -n " + environment));
         if (environment == "AzureCloud") {
             process.env.ARM_ENVIRONMENT = "public";
         }
