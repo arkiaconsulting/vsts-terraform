@@ -35,7 +35,7 @@ async function run() {
         }
 
         let tfRootPath = tl.getInput('tfrootpath', false);
-        if (tfRootPath !== undefined) {
+        if (tfRootPath !== null) {
             planBuilder.setRootPath(tfRootPath);
         }
 
