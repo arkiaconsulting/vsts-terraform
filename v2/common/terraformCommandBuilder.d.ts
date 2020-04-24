@@ -31,8 +31,10 @@ export declare class PlanCommandBuilder extends TerraformCommandBuilder {
 export declare class InitCommandBuilder extends TerraformCommandBuilder {
     private backend?;
     private customCommandLine?;
+    private backendConfigFile?;
     constructor(workingDirectory: string);
     setBackend(resourceGroupName: string, storageName: string, containerName: string, key: string): InitCommandBuilder;
+    setBackendConfig(filePath: string): void;
     setCustomCommandLine(customCommandLine: string): void;
     execute(): void;
 }
@@ -41,6 +43,7 @@ export interface BackendDescriptor {
     storage_account_name?: string;
     container_name?: string;
     key?: string;
+    filePath?: string;
 }
 export declare class ApplyCommandBuilder extends TerraformCommandBuilder {
     private planName;

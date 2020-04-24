@@ -9,14 +9,13 @@
   "demands": [],
   "version": {
     "Major": 0,
-    "Minor": 2,
-    "Patch": 4
+    "Minor": 3,
+    "Patch": 1
   },
   "preview": true,
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Terraform Apply",
-  "inputs": [
-    {
+  "inputs": [{
       "name": "cwd",
       "type": "filePath",
       "label": "Working Directory",

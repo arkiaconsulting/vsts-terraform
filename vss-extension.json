@@ -2,15 +2,13 @@
     "manifestVersion": 1,
     "id": "terraform-extension",
     "publisher": "arkiaconsulting",
-    "version": "1.3.18",
+    "version": "1.4.2",
     "name": "Terraforming (by AKC)",
     "description": "Tooling written in Node.js to easy your deployments using terraform (cross platform)",
     "public": true,
-    "targets": [
-        {
-            "id": "Microsoft.VisualStudio.Services"
-        }
-    ],
+    "targets": [{
+        "id": "Microsoft.VisualStudio.Services"
+    }],
     "categories": [
         "Build and release"
     ],
@@ -26,8 +24,7 @@
     "icons": {
         "default": "extension-icon.png"
     },
-    "screenshots": [
-        {
+    "screenshots": [{
             "path": "screenshot0.png"
         },
         {
@@ -56,8 +53,7 @@
             "uri": "https://github.com/arkiaconsulting/vsts-terraform"
         }
     },
-    "contributions": [
-        {
+    "contributions": [{
             "id": "TerraformAkc",
             "type": "ms.vss-distributed-task.task",
             "targets": [
@@ -138,8 +134,7 @@
             }
         }
     ],
-    "files": [
-        {
+    "files": [{
             "path": "terraform/src"
         },
         {

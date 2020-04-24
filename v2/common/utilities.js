@@ -23,7 +23,7 @@ const node_fetch_1 = __importDefault(require("node-fetch"));
 const os = require("os");
 const path = require("path");
 const tl = __importStar(require("azure-pipelines-task-lib"));
-const toolrunner_1 = __importDefault(require("azure-pipelines-task-lib/toolrunner"));
+const tr = require("azure-pipelines-task-lib/toolrunner");
 function downloadTerraform(workingDirectory, version) {
     return __awaiter(this, void 0, void 0, function* () {
         let osType = tl.osType() == 'Windows_NT' ? "windows_amd64" : 'linux_amd64';
@@ -65,14 +65,14 @@ function unzip(file, destinationFolder) {
     }
 }
 function unzipExtract(file, destinationFolder) {
-    const zip = new toolrunner_1.default.ToolRunner(tl.which("unzip", true));
-    zip.arg("-o");
-    zip.arg("-d");
-    zip.arg(destinationFolder);
-    zip.arg(file);
+    const zip = new tr.ToolRunner(tl.which("unzip", true));
+    zip.arg("-o"); // overwrite all
+    zip.arg("-d"); // redirect output to
+    zip.arg(destinationFolder); // output directory
+    zip.arg(file); // file to extract
     var result = zip.execSync();
     handleExecResult(result);
-    const bash = new toolrunner_1.default.ToolRunner(tl.which('bash', true))
+    const bash = new tr.ToolRunner(tl.which('bash', true))
         .arg('--noprofile')
         .arg('--norc')
         .arg('-c')
@@ -83,19 +83,19 @@ function unzipExtract(file, destinationFolder) {
 function sevenZipExtract(file, destinationFolder) {
     tl.debug('Extracting file: ' + file);
     const sevenZip = require('7zip-bin-win');
-    const zip = new toolrunner_1.default.ToolRunner(sevenZip.path7za);
+    const zip = new tr.ToolRunner(sevenZip.path7za);
     zip.arg("x");
-    zip.arg(file);
-    zip.arg(`-o${destinationFolder}`);
-    zip.arg("-y");
-    zip.arg("-spd");
-    zip.arg("-aoa");
+    zip.arg(file); // file to extract
+    zip.arg(`-o${destinationFolder}`); // redirect output to dir
+    zip.arg("-y"); // assume yes on all queries
+    zip.arg("-spd"); // disable wildcards
+    zip.arg("-aoa"); // overwrite all
     let result = zip.execSync();
 }
 function setAzureCloudBasedOnServiceEndpoint() {
     var connectedService = tl.getInput("connectedServiceNameARM", true);
     var environment = tl.getEndpointDataParameter(connectedService, "environment", true);
-    if(!!environment) {
+    if (!!environment) {
         handleExecResult(tl.execSync("az", "cloud set -n " + environment));
         if (environment == "AzureCloud") {
             process.env.ARM_ENVIRONMENT = "public";
@@ -144,4 +144,3 @@ function isVersionValid(version) {
     return match != null;
 }
 exports.isVersionValid = isVersionValid;
-//# sourceMappingURL=utilities.js.map
